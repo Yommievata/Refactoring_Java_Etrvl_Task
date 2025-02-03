@@ -14,6 +14,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Unit tests for the {@link RentalStatementServiceImpl} class.
+ * These tests verify the functionality of generating rental statements for customers,
+ * ensuring that movie rentals are correctly represented with rental prices and loyalty points.
+ */
 @DisplayName("RentalStatementServiceImpl Tests")
 class RentalStatementServiceImplTest {
     private RentalStatementService statementService;
@@ -26,6 +31,10 @@ class RentalStatementServiceImplTest {
         customer = new Customer(1L, "Test Customer");
     }
 
+    /**
+     * Tests generating a statement for a customer with a single regular movie rental.
+     * Verifies that the statement format and values (rental price and loyalty points) are correct.
+     */
     @Test
     @DisplayName("Generate statement for single regular movie rental")
     void generateStatement_SingleRegularMovie() {
@@ -45,6 +54,11 @@ class RentalStatementServiceImplTest {
         assertEquals(expected, result, "Statement should match expected format and values");
     }
 
+    /**
+     * Tests generating a statement for a customer with multiple movie rentals.
+     * Verifies that the statement correctly lists each rental, calculates the total amount owed,
+     * and the total loyalty points earned.
+     */
     @Test
     @DisplayName("Generate statement for multiple movie rentals")
     void generateStatement_MultipleMovies() {
@@ -70,6 +84,10 @@ class RentalStatementServiceImplTest {
         assertEquals(expected, result, "Statement should match expected format and values for multiple rentals");
     }
 
+    /**
+     * Tests generating a statement for a customer with no movie rentals.
+     * Verifies that the statement shows zero values for amount owed and loyalty points.
+     */
     @Test
     @DisplayName("Generate statement for customer with no rentals")
     void generateStatement_NoMovieRentals() {
@@ -84,6 +102,10 @@ class RentalStatementServiceImplTest {
         assertEquals(expected, result, "Statement should show zero amounts for customer with no rentals");
     }
 
+    /**
+     * Tests generating a statement for a customer with extended rental periods.
+     * Verifies that the statement correctly calculates rental prices and loyalty points for extended rentals.
+     */
     @Test
     @DisplayName("Generate statement for extended rental periods")
     void generateStatement_ExtendedRentals() {

@@ -12,6 +12,18 @@ public class RentalStatementServiceImpl implements RentalStatementService {
         this.priceService = priceService;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Generates a rental statement for the specified customer. The statement includes:
+     * - A list of rented movies
+     * - The rental price for each movie
+     * - Total amount owed
+     * - Loyalty points earned
+     *
+     * @param customer the customer for whom the rental statement is generated
+     * @return a string representing the rental statement
+     */
     @Override
     public String generateStatement(Customer customer) {
         StringBuilder result = new StringBuilder()

@@ -14,6 +14,10 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Unit tests for the {@link RentalPriceServiceImpl} class.
+ * This class tests the rental price calculations and loyalty points logic for different movie categories.
+ */
 @DisplayName("RentalPriceServiceImpl Tests")
 class RentalPriceServiceImplTest {
     private RentalPriceService priceService;
@@ -25,6 +29,14 @@ class RentalPriceServiceImplTest {
         testCustomer = new Customer(1L, "Test Customer");
     }
 
+    /**
+     * Tests the rental price calculation for regular movies.
+     * The expected price is based on the number of rental days, following the regular pricing model.
+     *
+     * @param title the title of the movie
+     * @param daysRented the number of days the movie was rented
+     * @param expectedPrice the expected rental price for the specified number of days
+     */
     @ParameterizedTest(name = "Regular movie rental for {1} days should cost {2}")
     @CsvSource({
             "Regular Movie, 1, 2.0",
@@ -42,6 +54,14 @@ class RentalPriceServiceImplTest {
                 String.format("Regular movie for %d days should cost %.1f", daysRented, expectedPrice));
     }
 
+    /**
+     * Tests the rental price calculation for new release movies.
+     * The expected price is based on the number of rental days, following the new release pricing model.
+     *
+     * @param title the title of the movie
+     * @param daysRented the number of days the movie was rented
+     * @param expectedPrice the expected rental price for the specified number of days
+     */
     @ParameterizedTest(name = "New release rental for {1} days should cost {2}")
     @CsvSource({
             "New Movie, 1, 3.0",
@@ -58,6 +78,14 @@ class RentalPriceServiceImplTest {
                 String.format("New release for %d days should cost %.1f", daysRented, expectedPrice));
     }
 
+    /**
+     * Tests the rental price calculation for children's movies.
+     * The expected price is based on the number of rental days, following the children's pricing model.
+     *
+     * @param title the title of the movie
+     * @param daysRented the number of days the movie was rented
+     * @param expectedPrice the expected rental price for the specified number of days
+     */
     @ParameterizedTest(name = "Children's movie rental for {1} days should cost {2}")
     @CsvSource({
             "Children Movie, 1, 1.5",
@@ -75,6 +103,10 @@ class RentalPriceServiceImplTest {
                 String.format("Children's movie for %d days should cost %.1f", daysRented, expectedPrice));
     }
 
+    /**
+     * Tests the loyalty points calculation for regular movie rentals.
+     * Regular movies should earn 1 loyalty point, regardless of the number of days rented.
+     */
     @Test
     @DisplayName("Regular movie should earn basic loyalty points")
     void calculateLoyaltyPoints_RegularMovie() {
@@ -88,6 +120,13 @@ class RentalPriceServiceImplTest {
                 "Regular movie should earn 1 loyalty point");
     }
 
+    /**
+     * Tests the loyalty points calculation for new release movie rentals.
+     * New release movies earn an extra loyalty point if rented for more than 2 days.
+     *
+     * @param daysRented the number of days the movie was rented
+     * @param expectedPoints the expected loyalty points for the specified number of days rented
+     */
     @ParameterizedTest(name = "New release rental for {0} days should earn {1} points")
     @CsvSource({
             "2, 1",
